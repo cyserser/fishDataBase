@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">fishDataBase</string>
+
+    <string name="appName">Fish database</string>
+
+    <string name="btn_login">Login!</string>
+    <string name="btn_fishes">Fishes</string>
+    <string name="btn_map">Map</string>
+
+    <string name="mediah_btn">Mediah</string>
+    <string name="balenos_btn">Balenos</string>
+    <string name="serendia_btn">Serendia</string>
+    <string name="calpheon_btn">Calpheon</string>
+    <string name="margoria_btn">Margoria</string>
+    <string name="btn_check_full_map">Check full map</string>
+    <string name="profile">Profile</string>
+    <string name="fishing">Fishing</string>
+    <string name="recipes">Recipes</string>
+    <string name="you_caught_a">You caught a</string>
+    <string name="size">Size</string>
+    <string name="fish">Fish!</string>
+    <string name="click_on_a_region">Click on a region!</string>
+    <string name="fish_no_available">Fishes are unavailable in this region</string>
+
+
+</resources>

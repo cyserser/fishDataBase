@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "265755258302",
+    "firebase_url": "https://bdo-fishes.firebaseio.com",
+    "project_id": "bdo-fishes",
+    "storage_bucket": "bdo-fishes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:265755258302:android:bf78ddf2321ae2c232ddef",
+        "android_client_info": {
+          "package_name": "com.example.fishdatabase"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "265755258302-p2thp5pv5svmlsq7m9vjrh1hgucebsra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByG6uA-wgk-Ta6Er4mkZia4U9Ro_AC2gM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "265755258302-p2thp5pv5svmlsq7m9vjrh1hgucebsra.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "265755258302-c4d7p2olu0p46qtbk6nlks0s3rkhkdhp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "es.ulpgc.cunwang.guo.fishDataBase",
+                "app_store_id": "123456789"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

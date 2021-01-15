@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.fishdatabase">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.FishDataBase">
+
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".IndexActivity"
+            android:label="Index"
+            android:parentActivityName=".LoginActivity"/>
+
+        <activity android:name=".FishesActivity"
+            android:label="Fishes"
+            android:parentActivityName=".IndexActivity"/>
+
+
+        <activity android:name=".FishesDetailActivity"
+            android:label="Fish detail"
+            android:parentActivityName=".FishesActivity"/>
+
+        <activity android:name=".Fishing"
+            android:label="Fishing"
+            android:parentActivityName=".IndexActivity"/>
+
+        <activity android:name=".FishesCaught"
+            android:label="Fishes caught"
+            android:parentActivityName=".IndexActivity"/>
+
+        <activity android:name=".FishMapFull"
+            android:label="Fish map full"
+            android:parentActivityName=".FishMap"/>
+
+        <activity android:name=".FishMapDetail"
+            android:label="Fish map detail"
+            android:parentActivityName=".FishMap"/>
+
+        <activity android:name=".FishMap"
+            android:label="Fish map"
+            android:parentActivityName=".IndexActivity"/>
+
+    </application>
+
+</manifest>
