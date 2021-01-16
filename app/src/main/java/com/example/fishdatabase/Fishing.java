@@ -32,8 +32,15 @@ import java.util.UUID;
 
 import pl.droidsonroids.gif.GifImageView;
 
+/**
+ * En esta pantalla se pretende realizar una mini simulación de pesca
+ * el cual dandole al botón de "Fish" empezará un progressBar y cuando
+ * se llene nos mostrará el pez capturado y su tamaño
+ */
+
 public class Fishing extends AppCompatActivity {
 
+    // Declaracion de botones, textviews etc.
     private Button btn_fish;
     private TextView tvFishCaughtName, tvFishCaughtSize;
     private ImageView ivFishCaught;
@@ -42,11 +49,11 @@ public class Fishing extends AppCompatActivity {
     private ArrayList<String> fishArray;
     private DatabaseReference readReference;
     private DatabaseReference writeReference;
-    private Timer timer;
-    private TimerTask timerTask;
-    private Handler timerHandler;
+
+    // Utilizaremos GifImageView para reproducir ficheros Gif
     private GifImageView gifImageView;
 
+    // Constructor que inicializa el randomGenerador y el arrayList
     public Fishing() {
        randomGenerator = new Random();
        fishArray = new ArrayList<>();
@@ -58,6 +65,7 @@ public class Fishing extends AppCompatActivity {
         setContentView(R.layout.activity_fishing);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Referenciamos
         btn_fish = findViewById(R.id.btn_startFish);
         tvFishCaughtName = findViewById(R.id.tvFishCaughtName);
         tvFishCaughtSize = findViewById(R.id.tvFishCaughtSize);
@@ -85,37 +93,63 @@ public class Fishing extends AppCompatActivity {
 //        });
 
         // Boton on CallBack
+        /**
+         * Este botón de "Fish" hara que empiece la simulación de la pesca
+         * lo más importante aqui es que hemos utilizado llamadas asincronas
+         * ya que firebase funciona de esa manera. Todos estos apectos se
+         * explicara mas en detalle en el código inferior.
+         */
         btn_fish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // CallBack
                 getFishesFromFirebase(new FishListCallback() {
+
                     @Override
                     public void onCallback(ArrayList<String> value) {
+                        // Generamos un UUID único asi se podra almacenar en Firebase los mismos peces
                         String stringID = UUID.randomUUID().toString().toUpperCase();
+                        /* Creamos dos variables que seran finales, es decir que matendra el valor random
+                        para esta llamada de método y que no se cambie tras la siguiente llamada.
+                        */
                         final String randomFish = getRandom();
                         final String randomSize = getRandomSize();
+                        /*Escribimos en Firebase en la ruta "fishesCaught" junto con el pez random y el UUID random generado anteriormente
+                        así como su tamaño random tambien.
+                         */
                         writeReference = database.getReference("fishesCaught/"+randomFish+"_"+stringID);
                         FetchFishesCaught fetchFishesCaught = new FetchFishesCaught(randomFish,randomSize);
                         writeReference.setValue(fetchFishesCaught);
 
+                        //Actualizamos el texto que nos mostrara en pantalla del pez random con su size random
                         tvFishCaughtName.setText(randomFish);
                         tvFishCaughtSize.setText(randomSize);
+                        //El nombre del pez lo convertimos a lowercase puesto que en drawable solo acepta ficheros en minuscula
                         String image = tvFishCaughtName.getText().toString().toLowerCase();
+                        // Aqui le haremos un set de la imagen dependiendo del nombre del pez
                         ivFishCaught.setImageResource(getResources().getIdentifier(image, "drawable", getPackageName()));
+                        // Aqui se cargará el gif loading cuando se este progresando el progressbar al pescar
                         gifImageView.setImageResource(R.drawable.loading);
 
+                        // Mostramos los textos en ??? para que el usuario no sepa que pez va a salir
                         tvFishCaughtName.setText("???");
                         tvFishCaughtSize.setText("???");
+                        // Al darle a fish la imagen por defecto desaparecerá y aparecerá el gif
                         ivFishCaught.setVisibility(View.INVISIBLE);
                         gifImageView.setVisibility(View.VISIBLE);
+                        // Desabilitamos el boton de pescar, hasta que no se llene el progressbar
                         btn_fish.setEnabled(false);
 
                         setUpObserver();
 
-                        // Temporizador de 5 segundos
+                        // Temporizador de 5 segundos realizado con runnable y handler
                         final Handler handler = new Handler(Looper.getMainLooper());
                         handler.postDelayed(new Runnable() {
+                            /**
+                             * Cuando se termine los 5 segundos actualizará los textos
+                             * desaparecerá el gif y aparecerá la imagen del pez pescado
+                             * tambien se habilitara el boton "fish"
+                             */
                             @Override
                             public void run() {
                                 tvFishCaughtName.setText(randomFish);
@@ -177,7 +211,7 @@ public class Fishing extends AppCompatActivity {
         return String.valueOf(randomSize);
     }
 
-    // Para el progressbar...
+    // Para el progressbar... de duración de 5 sec
     private void startAnimation() {
         int width = progressBar.getWidth();
         progressBar.setMax(width);
@@ -197,12 +231,12 @@ public class Fishing extends AppCompatActivity {
         animator.start();
     }
 
+    // Para el progressBar
     private void setUpObserver() {
         progressBar.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 startAnimation();
-
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     progressBar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                 }

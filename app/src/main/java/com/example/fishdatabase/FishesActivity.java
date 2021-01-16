@@ -18,8 +18,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Esta pantalla nos mostrará todos los peces disponibles en la base de datos
+ * de Firebase en un recyclerView, mostrandonos un icono del pez, el nombre y el "rarity"
+ */
 public class FishesActivity extends AppCompatActivity {
 
+    // Declaramos las listas, recycler, adapters y la referencia a la base de datos.
     List<FetchFishes> fetchFishesList;
     RecyclerView recyclerView;
     FishAdapter fishAdapter;
@@ -29,16 +34,27 @@ public class FishesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fishes);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // Para ir a la pantalla anterior
 
+        // Localizamos el recyclerView y le hacemos un set del layout
         recyclerView = findViewById(R.id.fishesRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //Creamos un arrayList para almacenar los peces
         fetchFishesList = new ArrayList<>();
 
+        //Referenciamos a la base de datos de firebase en este caso el child "fishes"
         databaseReference = FirebaseDatabase.getInstance().getReference("fishes");
 
+        //Añadimos un ValueListener para hacer el fetchado de los datos
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
 
+            /**
+             * En este método nos añadirá a la arrayList que hemos creado
+             * anteriormente todos los peces mediante un for los va recorriendo
+             * También se creará el adapter fishAdapter y lo usara
+             * el recyclerView.
+             * @param dataSnapshot
+             */
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds:dataSnapshot.getChildren()){

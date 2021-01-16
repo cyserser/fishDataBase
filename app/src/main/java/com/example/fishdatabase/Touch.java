@@ -9,6 +9,11 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.ImageView;
 
+/**
+ * Esta es una clase encontrada por internet, no hecha por mi pero se adaptado,
+ * el cual permite hacer zoom+ y zoom- a una imagen y moverlo
+ * por la pantalla para crear una sesación de navegación
+ */
 public class Touch implements OnTouchListener {
 
     // These matrices will be used to move and zoom image

@@ -4,8 +4,15 @@ import android.graphics.drawable.Drawable;
 
 import java.io.Serializable;
 
-public class FetchFishes implements Serializable {
+/**
+ * Es una clase para que guarda los atributos del pez, asi como su nombre
+ * "rarity", la región en la que se puede pescar, tamaño etc.
+ *
+ * Cabe mencionar que debe implementar serializable, para poder
+ */
 
+public class FetchFishes implements Serializable {
+    // Atributos
     String name;
     String rarity;
     String region;
@@ -13,8 +20,11 @@ public class FetchFishes implements Serializable {
     String description;
     String imgName;
 
+    //Constructor vacio
     public FetchFishes() {
     }
+
+    //Getters y Setters muy importante!!!
 
     public String getName() {
         return name;

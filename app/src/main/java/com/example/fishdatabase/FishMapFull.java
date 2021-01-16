@@ -13,6 +13,12 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
+/**
+ * Esta es una clase encontrada por internet, no hecha por mi pero se adaptado,
+ * el cual permite hacer zoom+ y zoom- a una imagen y moverlo
+ * por la pantalla para crear una sesación de navegación
+ */
+
 public class FishMapFull extends AppCompatActivity implements View.OnTouchListener {
 
     private static final String TAG = "Touch";

@@ -25,7 +25,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * En esta pantalla se mostrará el detalle de la región, es decir una imagen de la región y todos los
+ * peces que existan en esa región. Si no hay peces registrados en una región saltará un texto en color
+ * rojo indicando que no hay peces disponibles.
+ */
+
 public class FishMapDetail extends AppCompatActivity {
+
+    // Declaramos los tv, iv ..
 
     TextView tvRegionClicked,tvFishAvailable;
     String regionClicked;
@@ -44,14 +52,17 @@ public class FishMapDetail extends AppCompatActivity {
         setContentView(R.layout.activity_fish_map_detail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+        // Referenciamos
         tvRegionClicked = findViewById(R.id.tvRegionClicked);
         ivRegionReceived = findViewById(R.id.ivRegionReceived);
         tvFishAvailable = findViewById(R.id.tvFishAvailable);
 
-
+        // Creamos un intent para sacar los datos que nos ha pasado la pantalla FishMap
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
 
+        // Si no es null el paquete lo desenpaquetamos y sacamos la region
         if(bundle!=null)
         {
             regionClicked = (String) bundle.get("mapRegionClicked");
@@ -65,6 +76,7 @@ public class FishMapDetail extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         fetchFishesList = new ArrayList<>();
 
+        // ahora la ruta es "map" y la región que hemos desenpaquetado del bundle
         databaseReference = FirebaseDatabase.getInstance().getReference("map/"+regionClicked);
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -80,6 +92,7 @@ public class FishMapDetail extends AppCompatActivity {
                 fishAdapter = new FishAdapter(fetchFishesList);
                 recyclerView.setAdapter(fishAdapter);
 
+                //Si esta vacio la lista, mostramos el texto de no disponible
                 if(fetchFishesList.isEmpty()){
                     tvFishAvailable.setText(R.string.fish_no_available);
                     tvFishAvailable.setTextColor(Color.parseColor("#FF0000"));

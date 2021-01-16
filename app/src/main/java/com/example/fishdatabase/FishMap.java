@@ -11,8 +11,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+/**
+ * En esta pantalla nos mostrará los diferentes regiones del mapa y haciendo click en una de ellas
+ * nos llevará al detalle de esa región. Existirá ademas una boton para ir a "fullmap" donde estara
+ * el mapa completo y podremos hacer zoom y mover.
+ */
 public class FishMap extends AppCompatActivity {
 
+    // Declaramos los botones
     private Button btn_balenos, btn_serendia, btn_calpheon, btn_mediah, btn_margoria, btn_fullmap;
 
     @Override
@@ -21,6 +27,7 @@ public class FishMap extends AppCompatActivity {
         setContentView(R.layout.activity_fish_map);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //Referenciamos y le asignamos como onClick
         btn_balenos = findViewById(R.id.btn_balenos);
         btn_balenos.setOnClickListener(this::onClick);
 
@@ -41,7 +48,11 @@ public class FishMap extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Cremos un intent y dependiendo del boton que hayamos pulsado se cargará una region u otra
+     * mostrando además un Toast indicando la región pulsada
+     * @param v
+     */
     @SuppressLint("NonConstantResourceId")
     public void onClick(View v) {
 

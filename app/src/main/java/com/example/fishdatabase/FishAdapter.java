@@ -16,15 +16,27 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
+/**
+ *  Esta clase es una adapter que lo utilizará nuestro recyclerView
+ *
+ */
 public class FishAdapter extends RecyclerView.Adapter{
 
+    //Creamos una lista
     List<FetchFishes> fetchFishesList;
 
+    //Constructor
     public FishAdapter(List<FetchFishes> fetchFishesList) {
         this.fetchFishesList = fetchFishesList;
 
     }
 
+    /**
+     * Este método se encargará de "inflar" el layout example_item
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.example_item,parent,false);
@@ -32,14 +44,17 @@ public class FishAdapter extends RecyclerView.Adapter{
         return viewHolderClass;
     }
 
+    /**
+     * En este método nos mostrará los datos en las diferentes posiciones del recyclerView
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
+        //Creamos el viewHodler
         ViewHolderClass viewHolderClass = (ViewHolderClass)holder;
-//        String mDrawableName = "mudskipper";
-//        int resID = context.getResources().getIdentifier(mDrawableName , "drawable", context.getPackageName());
-//        String fishName = fetchFishes.getName();
-//        int fishNameDos = context.getResources().getIdentifier(fishName, "drawable", context.getPackageName());
+
+        //Obtenemos la posición y le pasamos el nombre y rarity
         FetchFishes fetchFishes = fetchFishesList.get(position);
         viewHolderClass.name.setText(fetchFishes.getName());
         viewHolderClass.rarity.setText(fetchFishes.getRarity());
@@ -51,6 +66,13 @@ public class FishAdapter extends RecyclerView.Adapter{
 
     }
 
+    /**
+     * Metodo que cambia de color al texto "rarity" dependiendo del rarity, es decir si es "common"
+     * el color de rarity saldra verde y por el contrario si es "rare" el color del rarity
+     * saldra en color azul.
+     * @param viewHolderClass
+     * @param fishRarity
+     */
     private void getRarity(ViewHolderClass viewHolderClass, String fishRarity) {
         if(fishRarity.equals("common")){
             viewHolderClass.rarity.setTextColor(Color.parseColor("#00FF00"));
@@ -59,6 +81,12 @@ public class FishAdapter extends RecyclerView.Adapter{
         }
     }
 
+    /**
+     * Metodo que nos hara de setImageResource dependiendo del pez que le pasemos, o sea
+     * si le pasamos "mudskipper" nos hara un set de su imagen localizado en R.Drawable
+     * @param viewHolderClass
+     * @param fishName
+     */
     private void getImgName(ViewHolderClass viewHolderClass, String fishName) {
         if(fishName.equals("Mudskipper")){
             viewHolderClass.imgName.setImageResource(R.drawable.mudskipper);
@@ -69,11 +97,22 @@ public class FishAdapter extends RecyclerView.Adapter{
         }
     }
 
+    /**
+     * Devuelve el tamaño de la lista
+     * @return
+     */
     @Override
     public int getItemCount() {
         return fetchFishesList.size();
     }
 
+    /**
+     * Aqui es donde declaramos los textViews y ImageViews, donde posteriormente
+     * los encuentra mediante findviewById. También dispondra de un onclick para saber
+     * en que posición de la lista hemos hecho click, de tal manera que nos lleve al detalle
+     * de ese pez clickeado con sus caracterisitcas pasandole un "fishItem" que contendra
+     * el nombre, region, rarity etc.
+     */
     public class ViewHolderClass extends RecyclerView.ViewHolder{
         TextView name, rarity;
         ImageView imgName;

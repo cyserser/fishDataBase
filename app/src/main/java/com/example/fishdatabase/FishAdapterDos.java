@@ -14,6 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+/**
+ * Para resumir, es igual al la clase FishAdapter salvo que le pasamos el
+ * nombre y Size en vez de nombre y rarity, el resto es casi igual.
+ */
+
 public class FishAdapterDos extends RecyclerView.Adapter{
 
     List<FetchFishes> fetchFishesList;
