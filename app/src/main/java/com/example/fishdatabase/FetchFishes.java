@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Es una clase para que guarda los atributos del pez, asi como su nombre
  * "rarity", la región en la que se puede pescar, tamaño etc.
  *
- * Cabe mencionar que debe implementar serializable, para poder
+ * Cabe mencionar que debe implementar serializable, para poder mandarlo como bundle con un intent
  */
 
 public class FetchFishes implements Serializable {
